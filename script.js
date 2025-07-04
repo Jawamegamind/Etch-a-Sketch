@@ -2,6 +2,19 @@
 
 // Getting references to all the crucial elements
 const grid = document.querySelector('.grid');
+const clearButton = document.querySelector('#clear-grid')
+
+// Registering event listners for button
+clearButton.addEventListener('click', () => {
+    // Call the clearGrid function
+    clearGrid()
+})
+
+// Function for clearing the grid
+function clearGrid() {
+    grid.innerHTML = ''
+    createGrid(16)
+}
 
 // Function for creating a grid of divs
 function createGrid(size) {
@@ -16,6 +29,7 @@ function createGrid(size) {
         gridItem.classList.add('grid-item');
         // Adding style for the grid items
         gridItem.style.border = '1px solid #ddd';
+        // Add an event listener for highlighting grid item the mouse hovers over
         gridItem.addEventListener('mouseover', () => {
             gridItem.style.backgroundColor = 'black'; // Change color on hover
         });

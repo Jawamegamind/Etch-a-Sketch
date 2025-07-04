@@ -1,5 +1,8 @@
 // Script file accompanying the Etch-a-Sketch project
 
+// Some global variables for state tracking
+mousedown = false
+
 // Getting references to all the crucial elements
 const grid = document.querySelector('.grid');
 const clearButton = document.querySelector('#clear-grid')
@@ -29,9 +32,23 @@ function createGrid(size) {
         gridItem.classList.add('grid-item');
         // Adding style for the grid items
         gridItem.style.border = '1px solid #ddd';
+        // Adding an event listener for mousedown so that we can have click and drag highlighting
+        gridItem.addEventListener('mousedown', () => {
+            // If mousedown is detected update boolean
+            mousedown = true
+            // Update grid color
+            gridItem.style.backgroundColor = 'black';
+        })
+        // Adding an event listener for mouseup
+        gridItem.addEventListener('mouseup', () => {
+            // Update the boolean
+            mousedown = false
+        })
         // Add an event listener for highlighting grid item the mouse hovers over
         gridItem.addEventListener('mouseover', () => {
-            gridItem.style.backgroundColor = 'black'; // Change color on hover
+            if (mousedown == true) {
+                gridItem.style.backgroundColor = 'black'; // Change color on hover
+            }
         });
         grid.appendChild(gridItem);
     }

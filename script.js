@@ -26,10 +26,8 @@ slider.addEventListener('input', () => {
 
 // Adding event listener for updating the grid
 gridUpdateButton.addEventListener('click', () => {
-    // First clear the current grid
+    // Call the clear grid function to reinitialize grid with new size
     clearGrid()
-    // After clearing the grid reninitialze it using the slider's value
-    createGrid(slider.value)
 })
 
 // Function for clearing the grid

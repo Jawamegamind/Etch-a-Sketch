@@ -6,11 +6,21 @@ mousedown = false
 // Getting references to all the crucial elements
 const grid = document.querySelector('.grid');
 const clearButton = document.querySelector('#clear-grid')
+const slider = document.querySelector('#grid-slider')
+const sliderValue = document.querySelector('#slider-value')
+const sliderValueY = document.querySelector('#slider-value-y')
 
 // Registering event listners for button
 clearButton.addEventListener('click', () => {
     // Call the clearGrid function
     clearGrid()
+})
+
+// Adding event listener on the slider to update the value of the current grid size below it
+slider.addEventListener('input', () => {
+    // Updating the inner text of the span element that sits below the slider
+    sliderValue.textContent = slider.value
+    sliderValueY.textContent = slider.value
 })
 
 // Function for clearing the grid
@@ -53,15 +63,6 @@ function createGrid(size) {
         grid.appendChild(gridItem);
     }
 }
-
-// // Getting reference to the grid items
-// const gridItems = document.querySelectorAll('.grid-item');
-// // Adding event listeners to each grid item for hover effect
-// gridItems.forEach(item => {
-//     item.addEventListener('onmouseover', () => {
-//         item.style.backgroundColor = 'black'; // Change color on hover
-//     });
-// });
 
 // Calling the grid load function on page load
 window.onload = () => {

@@ -20,6 +20,14 @@
             <button>Button 4</button>
             <button>Button 5</button>
             <button id="clear-grid">Clear Grid</button>
+
+            <!-- Slider for adjusting the grid size -->
+             <div class="slide-container">
+                <input type="range" min="16" max="64" step="4" value="16" class="slider" id="grid-slider">
+                <p>Grid Size: <span id="slider-value">16</span> x <span id="slider-value-y">16</span></p>
+                <!-- Button for recreating the grid with the new slider value -->
+                 <button id="update-grid">Update Grid</button>
+             </div>
         </div>
         <!-- Grid div populated using Javascript -->
          <div class="grid">

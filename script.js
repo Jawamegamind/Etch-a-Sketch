@@ -9,6 +9,7 @@ const clearButton = document.querySelector('#clear-grid')
 const slider = document.querySelector('#grid-slider')
 const sliderValue = document.querySelector('#slider-value')
 const sliderValueY = document.querySelector('#slider-value-y')
+const gridUpdateButton = document.querySelector('#update-grid')
 
 // Registering event listners for button
 clearButton.addEventListener('click', () => {
@@ -23,10 +24,19 @@ slider.addEventListener('input', () => {
     sliderValueY.textContent = slider.value
 })
 
+// Adding event listener for updating the grid
+gridUpdateButton.addEventListener('click', () => {
+    // First clear the current grid
+    clearGrid()
+    // After clearing the grid reninitialze it using the slider's value
+    createGrid(slider.value)
+})
+
 // Function for clearing the grid
 function clearGrid() {
     grid.innerHTML = ''
-    createGrid(16)
+    // Instead of creating a 16x16 grid use the slider's current value
+    createGrid(slider.value)
 }
 
 // Function for creating a grid of divs

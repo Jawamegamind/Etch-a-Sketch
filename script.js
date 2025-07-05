@@ -2,10 +2,13 @@
 
 // Some global variables for state tracking
 mousedown = false
+eraserToggled = false
 
 // Getting references to all the crucial elements
 const grid = document.querySelector('.grid');
 const clearButton = document.querySelector('#clear-grid')
+const penButton = document.querySelector('#pen')
+const eraserButton = document.querySelector('#eraser')
 const slider = document.querySelector('#grid-slider')
 const sliderValue = document.querySelector('#slider-value')
 const sliderValueY = document.querySelector('#slider-value-y')
@@ -28,6 +31,26 @@ slider.addEventListener('input', () => {
 gridUpdateButton.addEventListener('click', () => {
     // Call the clear grid function to reinitialize grid with new size
     clearGrid()
+})
+
+// Adding event listener on the eraser button to toggle eraser mode for resetting grid colors
+eraserButton.addEventListener('click', () => {
+    // Update the boolean variable to true so we can reset grid
+    eraserToggled = true
+    // Also update the button's color to indicate that the eraser is currently selected
+    eraserButton.style.backgroundColor = 'green'
+    // Reset pen color to the lightblue original
+    penButton.style.backgroundColor = 'lightblue'
+})
+
+// Adding an event listner on the pen button to toggle back from the eraser mode to the pen/color fill mode
+penButton.addEventListener('click', () => {
+    // Update eraser toggle to false
+    eraserToggled = false
+    // Update the eraser button back to it's original color
+    eraserButton.style.backgroundColor = 'lightblue'
+    // Update the pen button's background color to green
+    penButton.style.backgroundColor = 'green'
 })
 
 // Function for clearing the grid
@@ -54,8 +77,11 @@ function createGrid(size) {
         gridItem.addEventListener('mousedown', () => {
             // If mousedown is detected update boolean
             mousedown = true
-            // Update grid color
-            gridItem.style.backgroundColor = 'black';
+            if (eraserToggled) {
+                gridItem.style.backgroundColor = 'white';
+            } else {
+                gridItem.style.backgroundColor = 'black';
+            }
         })
         // Adding an event listener for mouseup
         gridItem.addEventListener('mouseup', () => {
@@ -65,7 +91,13 @@ function createGrid(size) {
         // Add an event listener for highlighting grid item the mouse hovers over
         gridItem.addEventListener('mouseover', () => {
             if (mousedown == true) {
-                gridItem.style.backgroundColor = 'black'; // Change color on hover
+                // Also check for eraser mode
+                if (eraserToggled == true) {
+                    gridItem.style.backgroundColor = 'white'
+                }
+                else {
+                    gridItem.style.backgroundColor = 'black'; // Change color on hover
+                }
             }
         });
         grid.appendChild(gridItem);

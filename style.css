@@ -61,6 +61,10 @@ header {
     margin: 10px 0px;
 }
 
+.options > #pen {
+    background-color: green;
+}
+
 .options > #clear-grid {
     width: 50%;
     padding: 7px;

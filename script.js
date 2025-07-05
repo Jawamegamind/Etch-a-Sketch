@@ -3,10 +3,12 @@
 // Some global variables for state tracking
 mousedown = false
 eraserToggled = false
+rainbowToggled = false
 
 // Getting references to all the crucial elements
 const grid = document.querySelector('.grid');
 const clearButton = document.querySelector('#clear-grid')
+const rainbowButton = document.querySelector('#rainbow')
 const penButton = document.querySelector('#pen')
 const eraserButton = document.querySelector('#eraser')
 const slider = document.querySelector('#grid-slider')
@@ -39,18 +41,35 @@ eraserButton.addEventListener('click', () => {
     eraserToggled = true
     // Also update the button's color to indicate that the eraser is currently selected
     eraserButton.style.backgroundColor = 'green'
-    // Reset pen color to the lightblue original
+    /// Update the other buttons back to their original color
     penButton.style.backgroundColor = 'lightblue'
+    rainbowButton.style.backgroundColor = 'lightblue'
 })
 
 // Adding an event listner on the pen button to toggle back from the eraser mode to the pen/color fill mode
 penButton.addEventListener('click', () => {
     // Update eraser toggle to false
     eraserToggled = false
-    // Update the eraser button back to it's original color
-    eraserButton.style.backgroundColor = 'lightblue'
+    // Update rainbow toggle to false
+    rainbowToggled = false
     // Update the pen button's background color to green
     penButton.style.backgroundColor = 'green'
+    // Update the other buttons back to their original color
+    eraserButton.style.backgroundColor = 'lightblue'
+    rainbowButton.style.backgroundColor = 'lightblue'
+})
+
+// Adding an event listener for updating rainbow toggle
+rainbowButton.addEventListener('click', () => {
+    // Update rainbow button to true
+    rainbowToggled = true
+    // Update eraser toggle
+    eraserToggled = false
+    // Update color of rainbow button
+    rainbowButton.style.backgroundColor = 'green'
+    // Reset background colors of all other buttons
+    eraserButton.style.backgroundColor = 'lightblue'
+    penButton.style.backgroundColor = 'lightblue'
 })
 
 // Function for clearing the grid
@@ -79,6 +98,14 @@ function createGrid(size) {
             mousedown = true
             if (eraserToggled) {
                 gridItem.style.backgroundColor = 'white';
+            }else if (rainbowToggled) {
+                // Use random RGB values for each grid cell
+                let R = Math.floor(Math.random() * 256)
+                let G = Math.floor(Math.random() * 256)
+                let B = Math.floor(Math.random() * 256)
+
+                // Update the background color of the div using the RGB CSS attribute
+                gridItem.style.backgroundColor = `rgb(${R},${G}, ${B})`
             } else {
                 gridItem.style.backgroundColor = 'black';
             }
@@ -94,8 +121,15 @@ function createGrid(size) {
                 // Also check for eraser mode
                 if (eraserToggled == true) {
                     gridItem.style.backgroundColor = 'white'
-                }
-                else {
+                } else if (rainbowToggled) {
+                // Use random RGB values for each grid cell
+                let R = Math.floor(Math.random() * 256)
+                let G = Math.floor(Math.random() * 256)
+                let B = Math.floor(Math.random() * 256)
+
+                // Update the background color of the div using the RGB CSS attribute
+                gridItem.style.backgroundColor = `rgb(${R},${G}, ${B})`
+                } else {
                     gridItem.style.backgroundColor = 'black'; // Change color on hover
                 }
             }
